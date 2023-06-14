@@ -1,5 +1,10 @@
 COMPILER	= cc
-SOURCEFILES	=	main.c
+SOURCEFILES	=	main.c	\
+				structs.c	\
+				map.c	\
+				gnl.c		\
+				gnl_utils.c	\
+				utils.c
 NAME	= so_long
 OBJ		= ${SOURCEFILES:.c=.o}
 

@@ -6,11 +6,11 @@
 /*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:02:33 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/13 20:02:41 by rfontes-         ###   ########.fr       */
+/*   Updated: 2023/06/14 05:30:41 by rfontes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "gnl.h"
 
 char	*ft_strchr(const char *s, int c)
 {
