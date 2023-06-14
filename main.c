@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <mlx.h>
 
 // int	key_hook(int keycode, t_data *data)
 // {
@@ -81,21 +80,20 @@ int	main(int argc, char **argv)
 	if (fd<0)
 		return(errorf(3));
 	data()->map=mapdata();
-	mapdata()->map=NULL;
 	mapdata()->map=getmap(mapdata()->map, fd, 0);
-	printf("getmap ok\n");
 	close(fd);
 	if(!mapdata()->map)
 		return(errorf(4));
 	if(!chkvalidmap())
 		return(errorf(5));
-	int i;
-	i=0;
-	while(mapdata()->map[i])
-		printf("%s", mapdata()->map[i]);
-	return(0);
 	data()->mlx = mlx_init();
-	data()->win = mlx_new_window(data()->mlx, mapdata()->height*64, mapdata()->length*64, "so_long");
+	data()->win = mlx_new_window(data()->mlx, mapdata()->length*64, mapdata()->height*64, "so_long");
+	int i;
+	i=-1;
+	while(mapdata()->map[++i])
+		printf("%s", mapdata()->map[i]);
+	printf("height=%i\nlength=%i\n", mapdata()->height, mapdata()->length);
+	render();
 	// mlx_key_hook(data()->win, key_hook, data());
 	// mlx_hook(data()->win, 17, 1L << 2, close, data());
 	mlx_loop(data()->mlx);

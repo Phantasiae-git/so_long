@@ -6,7 +6,7 @@
 /*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 00:30:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/14 05:54:52 by rfontes-         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:26:54 by rfontes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,17 @@ char **getmap(char **map, int fd, int i)
 
 	line=get_next_line(fd);
 	if(line)
-		getmap(map, fd, i+1);
+		map=getmap(map, fd, i+1);
 	else if(i==0 && map==NULL)
 		return(NULL);
 	else
 	{
-		map=(char **)malloc(i*sizeof(char *));
+		map=(char **)malloc((i+1)*sizeof(char *));
 		mapdata()->height=i;
-		return(NULL);
 	}
 	map[i]=line;
-	printf("%s", map[i]);
-	mapdata()->length=ft_strlen(line);
-	free(line);
+	if(map[i+1]==NULL)
+		mapdata()->length=ft_strlen(line);
 	return(map);
 }
 
@@ -48,16 +46,17 @@ int chkvalidmap()
 	int player;
 	int exit;
 
-	i=0;
+	i=-1;
 	mapdata()->collectibles=0;
 	player=0;
 	exit=0;
-	while(mapdata()->map[i])
+	printf("height=%i\nlength=%i\n", mapdata()->height, mapdata()->length);
+	while(++i<mapdata()->height)
 	{
-		j=0;
-		while(mapdata()->map[i][j]!='\0')
+		j=-1;
+		while(++j<mapdata()->length)
 		{
-			if(i==0 || i==(mapdata()->height-1) || j==0 ||j==(mapdata()->length-1))
+			if(i==0 || i==((mapdata()->height)-1) || j==0 ||j==((mapdata()->length)-1))
 			{
 				if(mapdata()->map[i][j]!='1')
 					return(0);
