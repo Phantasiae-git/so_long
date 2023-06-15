@@ -6,7 +6,7 @@
 /*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:02:33 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/14 05:30:41 by rfontes-         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:43:58 by rfontes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	if(!s)
-		return(0);
+	if (!s)
+		return (0);
 	while (*s)
 	{
 		if (*s == (char)c)

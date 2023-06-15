@@ -6,7 +6,7 @@
 /*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:00:45 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/13 20:00:54 by rfontes-         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:43:43 by rfontes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		i++;
 	}

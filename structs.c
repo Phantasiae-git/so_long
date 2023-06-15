@@ -6,7 +6,7 @@
 /*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:31:39 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/14 08:50:43 by rfontes-         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:43:11 by rfontes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,29 @@ t_data	*data(void)
 
 t_mapdata	*mapdata(void)
 {
-	static t_mapdata mapdata;
+	static t_mapdata	mapdata;
 
 	return (&mapdata);
 }
 
-void images(void)
+void	images(void)
 {
-	int a;
-	data()->image=malloc(5*sizeof(void *));
-	if(!data()->image)
-		return;
-	data()->image[0]=mlx_xpm_file_to_image(data()->mlx, "treerings.xpm", &a, &a);//floor
-	data()->image[1]=mlx_xpm_file_to_image(data()->mlx, "iron.xpm", &a, &a);//wall
-	data()->image[2]=mlx_xpm_file_to_image(data()->mlx, "waterf2.xpm", &a, &a);//player
-	data()->image[3]=mlx_xpm_file_to_image(data()->mlx, "treerings.xpm", &a, &a);//exit
-	data()->image[4]=mlx_xpm_file_to_image(data()->mlx, "treerings.xpm", &a, &a);//collectible
+	int	a;
+
+	data()->image = malloc(5 * sizeof(void *));
+	if (!data()->image)
+		return ;
+	(data()->image[0]) = mlx_xpm_file_to_image((data()->mlx), "img/floor.xpm",
+			&a, \
+												&a);
+	(data()->image[1]) = mlx_xpm_file_to_image(data()->mlx, "img/iron.xpm", &a, \
+												&a);
+	(data()->image[2]) = mlx_xpm_file_to_image(data()->mlx, "img/player.xpm",
+			&a, \
+												&a);
+	(data()->image[3]) = mlx_xpm_file_to_image(data()->mlx, "img/exit.xpm", &a, \
+												&a);
+	(data()->image[4]) = mlx_xpm_file_to_image(data()->mlx, \
+			"img/collectible.xpm", &a, \
+												&a);
 }
