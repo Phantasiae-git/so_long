@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phantasiae <phantasiae@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 00:30:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/15 23:51:40 by rfontes-         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:06:29 by phantasiae       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,17 @@ char	**getmap(char **map, int fd, int i)
 
 void	flood_fill(int i, int j)
 {
-	(void)i;
-	(void)j;
-	return ;
+	void fill(char **tab, t_point size, t_point cur, char to_fill)
+{
+	if(cur.x<0|| cur.y<0 ||cur.x >= size.x || cur.y >=size.y || tab[cur.y][cur.x]!=to_fill)
+		return;
+
+	tab[cur.y][cur.x]='F';
+	fill(tab, size, (t_point){cur.x-1, cur.y}, to_fill);
+	fill(tab, size, (t_point){cur.x+1, cur.y}, to_fill);
+	fill(tab, size, (t_point){cur.x, cur.y-1}, to_fill);
+	fill(tab, size, (t_point){cur.x, cur.y+1}, to_fill);
+}
 }
 
 int	aaaaaa(int i, int j, int *player, int *exit)
