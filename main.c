@@ -13,6 +13,40 @@
 
 #include "so_long.h"
 
+void	freearr(void)
+{
+	int	j;
+
+	j = -1;
+	if (mapdata()->tmp)
+	{
+		while (++j < mapdata()->height)
+			free(mapdata()->tmp[j]);
+		free(mapdata()->tmp);
+	}
+	j = -1;
+	if (mapdata()->map)
+	{
+		while (++j < mapdata()->height)
+			free(mapdata()->map[j]);
+		free(mapdata()->map);
+	}
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	char	*ptr;
+	size_t	i;
+
+	ptr = (char *)malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (++i < nmemb * size)
+		ptr[i] = '\0';
+	return (ptr);
+}
+
 int	checkfile(char *name, char *ext)
 {
 	int	i;
@@ -37,6 +71,7 @@ int	checkfile(char *name, char *ext)
 
 int	errorf(int i)
 {
+	freearr();
 	if (i == 1)
 		printf("Incorrect number of arguments\n");
 	if (i == 2)

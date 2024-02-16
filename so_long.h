@@ -6,7 +6,7 @@
 /*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:37:40 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/15 22:01:02 by rfontes-         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:06:23 by rfontes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_mapdata
 {
 	char		**map;
+	char		**tmp;
 	int			height;
 	int			length;
 	int			collectibles;
@@ -41,12 +42,15 @@ t_mapdata		*mapdata(void);
 t_data			*data(void);
 
 int				chkvalidmap(void);
-void			flood_fill(int i, int j);
+void			flood_fill(char **map, int i, int j);
 char			**getmap(char **map, int fd, int i);
 int				checkfile(char *name, char *ext);
 void			render(int i);
 void			images(void);
 int				key_hook(int keycode, t_data *data);
 int				closewin(void);
+void			*ft_calloc(size_t nmemb, size_t size);
+void			ft_putnbr(int n);
+void			freearr(void);
 
 #endif

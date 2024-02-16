@@ -6,7 +6,7 @@
 /*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/15 23:40:29 by rfontes-         ###   ########.fr       */
+/*   Updated: 2023/06/17 17:03:33 by rfontes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,31 @@ void	render(int i)
 				mlx_put_image_to_window(data()->mlx, data()->win, \
 						data()->image[4], j * 64, i * 64);
 		}
+	}
+}
+
+void	ft_putnbr(int n)
+{
+	char	c;
+
+	if (n <= -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		return ;
+	}
+	if (n < 0)
+	{
+		n = -n;
+		write(1, "-", 1);
+	}
+	if (n > 9)
+	{
+		ft_putnbr(n / 10);
+		ft_putnbr(n % 10);
+	}
+	else
+	{
+		c = n + '0';
+		write(1, &c, 1);
 	}
 }

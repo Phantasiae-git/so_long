@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phantasiae <phantasiae@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rfontes- <rfontes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 00:30:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2023/06/16 16:06:29 by phantasiae       ###   ########.fr       */
+/*   Updated: 2023/06/17 18:53:37 by rfontes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**getmap(char **map, int fd, int i)
 		return (NULL);
 	else
 	{
-		map = (char **)calloc((i + 2), sizeof(char *));
+		map = (char **)ft_calloc((i + 2), sizeof(char *));
 		mapdata()->height = i;
 	}
 	map[i] = line;
@@ -32,19 +32,51 @@ char	**getmap(char **map, int fd, int i)
 	return (map);
 }
 
-void	flood_fill(int i, int j)
+char	**maptmp(char **map)
 {
-	void fill(char **tab, t_point size, t_point cur, char to_fill)
-{
-	if(cur.x<0|| cur.y<0 ||cur.x >= size.x || cur.y >=size.y || tab[cur.y][cur.x]!=to_fill)
-		return;
+	int		i;
+	int		j;
+	char	**tmp;
 
-	tab[cur.y][cur.x]='F';
-	fill(tab, size, (t_point){cur.x-1, cur.y}, to_fill);
-	fill(tab, size, (t_point){cur.x+1, cur.y}, to_fill);
-	fill(tab, size, (t_point){cur.x, cur.y-1}, to_fill);
-	fill(tab, size, (t_point){cur.x, cur.y+1}, to_fill);
+	tmp = (char **)ft_calloc(mapdata()->height, sizeof(char *));
+	if (!tmp)
+		return (NULL);
+	i = -1;
+	while (++i < mapdata()->height)
+	{
+		j = -1;
+		tmp[i] = (char *)ft_calloc((mapdata()->length) + 1, 1);
+		if (!tmp)
+			return (NULL);
+		while (++j < mapdata()->length)
+			tmp[i][j] = map[i][j];
+	}
+	return (tmp);
 }
+
+int	flood_fill2(void)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < mapdata()->height)
+	{
+		j = -1;
+		if (i + 1 < mapdata()->height)
+			if ((int)ft_strlen(mapdata()->map[i]) != (mapdata()->length + 1))
+				return (0);
+		while (++j < mapdata()->length)
+		{
+			if (mapdata()->tmp[i][j] == 'C')
+				return (0);
+			if (mapdata()->tmp[i][j] == 'E' && !(mapdata()->tmp[i + 1][j] == 'P'
+					|| mapdata()->tmp[i][j + 1] == 'P' || mapdata()->tmp[i
+					- 1][j] == 'P' || mapdata()->tmp[i][j - 1] == 'P'))
+				return (0);
+		}
+	}
+	return (1);
 }
 
 int	aaaaaa(int i, int j, int *player, int *exit)
@@ -55,8 +87,8 @@ int	aaaaaa(int i, int j, int *player, int *exit)
 		if (mapdata()->map[i][j] != '1')
 			return (0);
 	}
-	else if (mapdata()->map[i][j] != '0' && mapdata()->map[i][j] != '1' \
-			&& mapdata()->map[i][j] != 'P' && mapdata()->map[i][j] != 'E' \
+	else if (mapdata()->map[i][j] != '0' && mapdata()->map[i][j] != '1'
+			&& mapdata()->map[i][j] != 'P' && mapdata()->map[i][j] != 'E'
 			&& mapdata()->map[i][j] != 'C')
 		return (0);
 	if (mapdata()->map[i][j] == 'C')
@@ -88,11 +120,15 @@ int	chkvalidmap(void)
 		j = -1;
 		while (++j < mapdata()->length)
 		{
-			aaaaaa(i, j, &player, &exit);
+			if (!aaaaaa(i, j, &player, &exit))
+				return (0);
 		}
 	}
 	if (mapdata()->collectibles < 1 || player != 1 || exit != 1)
 		return (0);
-	flood_fill(mapdata()->playery, mapdata()->playerx);
+	mapdata()->tmp = maptmp(mapdata()->map);
+	flood_fill(mapdata()->tmp, mapdata()->playery, mapdata()->playerx);
+	if (!flood_fill2())
+		return (0);
 	return (1);
 }
